@@ -20,6 +20,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.registers = require("../modules/register.modle.js")(sequelize, Sequelize);
+db.contacts = require("../modules/contact.modle.js")(sequelize, Sequelize);
 
 
 db.sequelize.sync({ force: false }).then(() => {
