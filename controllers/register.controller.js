@@ -49,16 +49,69 @@ const register = async (req, res) => {
         const token = jwt.sign({ userId: userCreated.id }, "Hassan_Nadeem", { expiresIn: "1h" });
         console.log("register token :", token);
         res.status(201).json({
-            message: "registration successfully", userId: userCreated.id, token, databaseName: dbName,
-            tableName: tableName
+            message: "registration successfully", databaseName: dbName,
+            tableName: tableName, userId: userCreated.id, token
         })
     } catch (error) {
         console.log("register error :", error);
-        res.status(403).json({ message: "internal server" })
+        res.status(500).json({ message: "internal server" })
     }
 }
 
-module.exports = register
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body
+        console.log("email, password :", req.body);
+
+        if (
+            !email || !password
+        ) {
+            res.status(403);
+            res.send(`Email and password are required, 
+            example request body:
+        {
+            email: "abc email"
+            password: "abc password"
+
+        } 
+        `);
+            return;
+        }
+
+        const user = await User.findOne({ where: { email } })
+        console.log("login user :", user);
+
+        if (!user) {
+            return res.status(404).json({ message: "invalid username and password" });
+        }
+
+
+        const comparePassword = await bcrypt.compare(password, user.password)
+        console.log("comparePassword :", comparePassword);
+
+
+        if (!comparePassword) {
+            return res.status(404).json({ message: "invalid username and password" });
+        }
+
+        const token = jwt.sign({ userId: user.id }, "Hassan_Nadeem", { expiresIn: "1h" });
+        console.log("login token :", token);
+        res.status(201).json({
+            message: "login successfully", databaseName: dbName,
+            tableName: tableName, userId: user.id, token
+        })
+    } catch (error) {
+        console.log("login error :", error);
+        res.status(500).json({ message: "internal server" })
+    }
+}
+
+module.exports = {
+
+    register,
+    login
+
+}
 
 
 
