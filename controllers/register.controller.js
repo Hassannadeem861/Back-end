@@ -6,7 +6,8 @@ const User = db.registers;
 
 
 
-
+const dbName = "Authentication";
+const tableName = "register";
 const register = async (req, res) => {
     try {
         const { username, email, password } = req.body
@@ -47,7 +48,10 @@ const register = async (req, res) => {
 
         const token = jwt.sign({ userId: userCreated.id }, "Hassan_Nadeem", { expiresIn: "1h" });
         console.log("register token :", token);
-        res.status(201).json({ message: "registration successfully", userId: userCreated.id, token })
+        res.status(201).json({
+            message: "registration successfully", userId: userCreated.id, token, databaseName: dbName,
+            tableName: tableName
+        })
     } catch (error) {
         console.log("register error :", error);
         res.status(403).json({ message: "internal server" })
