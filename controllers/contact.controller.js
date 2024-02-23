@@ -1,12 +1,11 @@
 const db = require("../modules");
-const { where } = require("sequelize");
 const Contact = db.contacts;
 
 
 
 const dbName = "Authentication";
 const tableName = "contact";
-const register = async (req, res) => {
+const contact = async (req, res) => {
     try {
         const { username, email, message } = req.body
         console.log("username, email, message :", req.body);
@@ -33,10 +32,11 @@ const register = async (req, res) => {
         console.log("create data in database :", contactCreated);
 
         res.status(200).json({
-            message: "Contact successfully",
-            userId: contactCreated.id,
+            message: "Contact form submitted successfully",
+            username: username,
             dbName: dbName,
-            tableName: tableName
+            tableName: tableName,
+            userId: contactCreated.id,
         })
 
     } catch (error) {
@@ -45,7 +45,7 @@ const register = async (req, res) => {
     }
 }
 
-module.exports = Contact
+module.exports = contact
 
 
 

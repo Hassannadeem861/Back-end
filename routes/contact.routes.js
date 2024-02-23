@@ -1,8 +1,8 @@
-// const contactController = require("../controllers/contact.controller");
-// const router = require("express").Router();
+const contactController = require("../controllers/contact.controller.js");
+const router = require("express").Router();
 
 
-// // Create a new registers
-// router.post("/contact", contactController);
+// Create a new registers
+router.post("/contact", contactController);
 
-// module.exports = router
+module.exports = router

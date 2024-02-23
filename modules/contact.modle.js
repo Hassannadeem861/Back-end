@@ -5,12 +5,10 @@ const Contact = (sequelize) => {
         username: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
         },
         email: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true,
         },
         message: {
             type: Sequelize.STRING,

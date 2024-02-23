@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const authRouter = require("./routes/register.routes.js");
-// const contactRouter = require("./routes/contact.routes.js");
+const contactRouter = require("./routes/contact.routes.js");
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", authRouter)
-// app.use("/api/v1", contactRouter)
+app.use("/api/v1", contactRouter)
 
 // simple route
 app.get("/", (req, res) => {
