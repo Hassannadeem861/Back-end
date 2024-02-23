@@ -1,6 +1,12 @@
 import { React, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+// import { json } from 'sequelize';
 
+// const baseUrl = 'http://localhost:8080/api/v1/register'
 const Signup = () => {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         username: '',
         email: '',
@@ -20,9 +26,31 @@ const Signup = () => {
     }
 
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
-        console.log("user value: ", user);
+        // console.log("user value: ", user);
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/register`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            })
+            console.log("response :", response);
+            if (response.ok) {
+                setUser({
+                    username: '',
+                    email: '',
+                    password: ''
+                })
+            }
+            navigate('/login')
+        } catch (error) {
+            console.log("register error", error);   
+
+        }
     }
 
 
@@ -42,6 +70,7 @@ const Signup = () => {
                         placeholder='Enter your username'
                         value={user.username}
                         onChange={changeHandler}
+                    // ref={usernameInputRef}
                     />
                 </label>
                 <br />
@@ -56,6 +85,7 @@ const Signup = () => {
                         required
                         value={user.email}
                         onChange={changeHandler}
+                    // ref={emailInputRef}
                     />
                 </label>
                 <br />
@@ -68,7 +98,7 @@ const Signup = () => {
                         placeholder='Enter your password'
                         value={user.password}
                         onChange={changeHandler}
-
+                    // ref={passwordInputRef}
                     />
                 </label>
 

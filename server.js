@@ -5,11 +5,18 @@ const contactRouter = require("./routes/contact.routes.js");
 
 const app = express();
 
-var corsOptions = {
-    origin: "http://localhost:8080"
-};
+// const corsOptions = {
+//     origin: "http://localhost:3000/",
+//     methods: "POST, GET, DELETE, PUT",
+//     credential: true
 
-app.use(cors(corsOptions));
+// };
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
 
 // parse requests of content-type - application/json
 app.use(express.json());
