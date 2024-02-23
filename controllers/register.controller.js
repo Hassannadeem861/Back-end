@@ -27,6 +27,9 @@ const register = async (req, res) => {
             return;
         }
 
+        req.body.email = req.body.email.toLowerCase();
+
+
         const userEmail = await User.findOne({ where: { email } })
         console.log("userEmail :", userEmail);
 
@@ -77,6 +80,9 @@ const login = async (req, res) => {
         `);
             return;
         }
+
+        req.body.email = req.body.email.toLowerCase();
+
 
         const user = await User.findOne({ where: { email } })
         console.log("login user :", user);

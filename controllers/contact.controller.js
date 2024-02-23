@@ -22,6 +22,8 @@ const contact = async (req, res) => {
             return;
         }
 
+        req.body.email = req.body.email.toLowerCase();
+
         const userExist = await Contact.findOne({ where: { email } })
         console.log("userExist :", userExist);
 

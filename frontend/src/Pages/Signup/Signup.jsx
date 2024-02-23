@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import './Signup.css'
 import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 // import { json } from 'sequelize';
@@ -40,15 +41,17 @@ const Signup = () => {
             })
             console.log("response :", response);
             if (response.ok) {
+                const res_data = await response.json()
+                console.log("response from the server", res_data);
                 setUser({
                     username: '',
                     email: '',
                     password: ''
                 })
+                navigate('/login')
             }
-            navigate('/login')
         } catch (error) {
-            console.log("register error", error);   
+            console.log("register error", error);
 
         }
     }

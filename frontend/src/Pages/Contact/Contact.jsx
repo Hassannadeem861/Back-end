@@ -1,8 +1,8 @@
 import { React, useState } from 'react'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         username: '',
@@ -41,8 +41,8 @@ const Contact = () => {
                     email: '',
                     message: ''
                 })
+                navigate('/login')
             }
-            // navigate('/login')
         } catch (error) {
             console.log("register error", error);
 

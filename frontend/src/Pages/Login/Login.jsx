@@ -27,7 +27,7 @@ const Login = () => {
     // console.log("user value: ", user);
 
     try {
-      const loginResponse = await fetch(`http://localhost:8080/api/v1/register`, {
+      const loginResponse = await fetch(`http://localhost:8080/api/v1/login`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -37,12 +37,14 @@ const Login = () => {
 
       console.log("loginResponse :", loginResponse);
       if (loginResponse.ok) {
+        const res_data = await loginResponse.json()
+        console.log("response from the server: ", res_data);
         setUser({
           email: '',
           password: ''
         })
+        navigate('/')
       }
-      navigate('/')
 
 
     } catch (error) {
