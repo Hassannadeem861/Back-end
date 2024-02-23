@@ -1,8 +1,6 @@
 const db = require("../modules");
 const Contact = db.contacts;
-
-
-
+const { where } = require("sequelize");
 const dbName = "Authentication";
 const tableName = "contact";
 const contact = async (req, res) => {
@@ -24,6 +22,13 @@ const contact = async (req, res) => {
             return;
         }
 
+        const userExist = await Contact.findOne({ where: { email } })
+        console.log("userExist :", userExist);
+
+        if (userExist) {
+            return res.status(403).json({ message: "user email already exist please try a different email" })
+        }
+
         const contactCreated = await Contact.create({
             username,
             email,
@@ -31,12 +36,12 @@ const contact = async (req, res) => {
         })
         console.log("create data in database :", contactCreated);
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Contact form submitted successfully",
-            username: username,
             dbName: dbName,
             tableName: tableName,
             userId: contactCreated.id,
+            username: username,
         })
 
     } catch (error) {

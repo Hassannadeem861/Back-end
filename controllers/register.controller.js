@@ -27,10 +27,10 @@ const register = async (req, res) => {
             return;
         }
 
-        const userExist = await User.findOne({ where: { email } })
-        console.log("userExist :", userExist);
+        const userEmail = await User.findOne({ where: { email } })
+        console.log("userEmail :", userEmail);
 
-        if (userExist) {
+        if (userEmail) {
             return res.status(403).json({ message: "user email already exist please try a different email" })
         }
 

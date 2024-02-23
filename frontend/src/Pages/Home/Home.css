@@ -1,0 +1,53 @@
+/* VideoBackground.css */
+.video-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 5em; */
+    flex-wrap: wrap;
+    position: absolute;
+    top: 60%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+
+.content-left {
+    flex: 1;
+}
+
+.section1-heading {
+    font-size: 50px;
+}
+
+.section1-button {
+    width: 200px;
+    height: 50px;
+    background-color: #F9004D;
+    color: white;
+    border-radius: 5px;
+}
+
+.section1-button:hover {
+    background-color: black;
+}
+
+img {
+    width: 400px;
+}
