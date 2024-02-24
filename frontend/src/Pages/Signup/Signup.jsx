@@ -1,12 +1,12 @@
 import { React, useState } from 'react'
 import './Signup.css'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../store/auth';
 // import axios from 'axios';
 // import { json } from 'sequelize';
 
 // const baseUrl = 'http://localhost:8080/api/v1/register'
 const Signup = () => {
-    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         username: '',
@@ -14,6 +14,11 @@ const Signup = () => {
         password: ''
     })
     // console.log("user :", user);
+
+    const navigate = useNavigate();
+    const storeTokenInLS = useAuth();
+    console.log("storeTokenInLS :", storeTokenInLS);
+
 
     const changeHandler = (e) => {
         // console.log("event: ", e);
