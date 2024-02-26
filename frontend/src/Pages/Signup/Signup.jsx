@@ -7,6 +7,11 @@ import { useAuth } from '../../store/auth';
 
 // const baseUrl = 'http://localhost:8080/api/v1/register'
 const Signup = () => {
+    const navigate = useNavigate();
+    const { storeTokenInLS } = useAuth();
+    // console.log("storeTokenInLS :", storeTokenInLS);
+
+
 
     const [user, setUser] = useState({
         username: '',
@@ -14,10 +19,6 @@ const Signup = () => {
         password: ''
     })
     // console.log("user :", user);
-
-    const navigate = useNavigate();
-    const storeTokenInLS = useAuth();
-    console.log("storeTokenInLS :", storeTokenInLS);
 
 
     const changeHandler = (e) => {
@@ -48,6 +49,7 @@ const Signup = () => {
             if (response.ok) {
                 const res_data = await response.json()
                 console.log("response from the server", res_data);
+                storeTokenInLS(res_data.token)
                 setUser({
                     username: '',
                     email: '',
