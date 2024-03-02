@@ -1,8 +1,8 @@
 import { React, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [user, setUser] = useState({
         username: '',
@@ -41,10 +41,10 @@ const Contact = () => {
                     email: '',
                     message: ''
                 })
-                navigate('/login')
+                // navigate('/login')
             }
         } catch (error) {
-            console.log("register error", error);
+            console.log("contact error", error);
 
         }
     }
@@ -58,8 +58,6 @@ const Contact = () => {
                     <input
                         type="text"
                         name="username"
-                        // value={formData.firstName}
-                        // onChange={handleChange}
                         required
                         placeholder='Enter your username'
                         value={user.username}
@@ -74,8 +72,6 @@ const Contact = () => {
                         type="email"
                         name="email"
                         placeholder='Enter your email'
-                        // value={formData.lastName}
-                        // onChange={handleChange}
                         required
                         value={user.email}
                         onChange={changeHandler}

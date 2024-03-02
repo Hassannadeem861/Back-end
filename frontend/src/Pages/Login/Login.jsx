@@ -1,8 +1,13 @@
 import { React, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../store/auth';
 
+
+// const baseUrl = 'http://localhost:8080/api/v1/login'
 const Login = () => {
   const navigate = useNavigate();
+  const { storeTokenInLS } = useAuth();
+  // console.log("storeTokenInLS :", storeTokenInLS);
 
   const [user, setUser] = useState({
     email: '',
@@ -39,6 +44,7 @@ const Login = () => {
       if (loginResponse.ok) {
         const res_data = await loginResponse.json()
         console.log("response from the server: ", res_data);
+        storeTokenInLS(res_data.token)
         setUser({
           email: '',
           password: ''

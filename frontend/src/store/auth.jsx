@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 
 export const globalContext = createContext()
@@ -6,13 +6,25 @@ export const globalContext = createContext()
 
 
 export const AuthProvider = ({ children }) => {
+    const [token, setToken] = useState(localStorage.getItem('token'))
+    console.log("token :", token);
 
     const storeTokenInLS = (serverToken) => {
         return localStorage.setItem('token', serverToken)
     }
-    // console.log("storeTokenInLS :", storeTokenInLS);
+    // console.log("storeTokenInLS :", storeTokenInLS); 
 
-    return <globalContext.Provider value={{ storeTokenInLS }}>
+    const isLoggedIn = !!token
+    console.log("isLoggedIn :", isLoggedIn);
+
+    const logoutUser = () => {
+        setToken('')
+        return localStorage.removeItem('token')
+    }
+    // console.log("logoutUser :", logoutUser);
+
+
+    return <globalContext.Provider value={{ isLoggedIn, storeTokenInLS, logoutUser }}>
         {children}
     </globalContext.Provider>
 

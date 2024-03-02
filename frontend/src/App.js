@@ -8,6 +8,7 @@ import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/Signup'
 import PageNotFound from './Pages/PageNotFound/PageNotFound'
 import Navbar from './Components/Navbar/Navbar'
+import Logout from './Pages/Logout/Logout'
 
 function App() {
  
@@ -22,6 +23,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
