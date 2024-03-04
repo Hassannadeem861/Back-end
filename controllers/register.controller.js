@@ -104,7 +104,7 @@ const login = async (req, res) => {
         console.log("login token :", token);
         res.status(201).json({
             message: "login successfully", databaseName: dbName,
-            tableName: tableName, userId: user.id, token
+            tableName: tableName, userId: user.id, token, email: user.email
         })
     } catch (error) {
         console.log("login error :", error);
@@ -112,10 +112,22 @@ const login = async (req, res) => {
     }
 }
 
+const user = async (req, res) => {
+    try {
+        const userData = req.user
+        console.log("userData :", userData);
+        res.status(201).json({ message: userData })
+    } catch (error) {
+        console.log("error from the server :", error);
+
+    }
+}
+
 module.exports = {
 
     register,
-    login
+    login,
+    user
 
 }
 
