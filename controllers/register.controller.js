@@ -100,11 +100,11 @@ const login = async (req, res) => {
             return res.status(404).json({ message: "invalid username and password" });
         }
 
-        const token = jwt.sign({ userId: user.id }, "Hassan_Nadeem", { expiresIn: "1h" });
+        const token = jwt.sign({ userId: user.id, email: user.email }, "Hassan_Nadeem", { expiresIn: "1h" });
         console.log("login token :", token);
         res.status(201).json({
             message: "login successfully", databaseName: dbName,
-            tableName: tableName, userId: user.id, token, email: user.email
+            tableName: tableName, userId: user.id, token, email: user.email, 
         })
     } catch (error) {
         console.log("login error :", error);

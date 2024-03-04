@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const Register = require('../modules/register.modle');
+const Register = require('../modules/register.modle.js');
+const { where } = require('sequelize');
 
 
 const authMiddleware = async (req, res, next) => {
@@ -19,20 +20,14 @@ const authMiddleware = async (req, res, next) => {
         const userData = await Register.findOne({ where: { email: verifyToken.email } });
         console.log("userData :", userData);
 
-        req.user = userData
-        req.token = token
-        req.userId = userData.id
-        next();
-
-        // if (userData) {
-        //     req.user = userData;
-        //     req.token = token;
-        //     req.userId = userData.id;
-        // } else {
-        //     return res.status(200).json({ message: "User not found" });
-        // }
-
-        // next()
+        if (userData) {
+            req.user = userData;
+            req.token = token;
+            req.userId = userData.id;
+            next();
+        } else {
+            return res.status(200).json({ message: "User not found" });
+        }
     } catch (error) {
         console.log("verifyToken error:", error);
         return res.status(200).json({ message: "Unauthorized token" })
