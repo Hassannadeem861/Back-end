@@ -53,7 +53,8 @@ const register = async (req, res) => {
         console.log("register token :", token);
         res.status(201).json({
             message: "registration successfully", databaseName: dbName,
-            tableName: tableName, userId: userCreated.id, token
+            tableName: tableName, userId: userCreated.id, isAdmin: this.isAdmin, token
+
         })
     } catch (error) {
         console.log("register error :", error);
@@ -104,7 +105,7 @@ const login = async (req, res) => {
         console.log("login token :", token);
         res.status(201).json({
             message: "login successfully", databaseName: dbName,
-            tableName: tableName, userId: user.id, token
+            tableName: tableName, userId: user.id, isAdmin: this.isAdmin, token
         })
     } catch (error) {
         console.log("login error :", error);
@@ -112,10 +113,25 @@ const login = async (req, res) => {
     }
 }
 
+
+// USER LOGIC 
+const userLogic = async (req, res) => {
+    try {
+        const userData = req.user
+        console.log("userData :", userData);
+        return res.status(201).json({ message: userData })
+    } catch (error) {
+        console.log(`error from the userlogic ${error}`);
+
+    }
+
+}
+
 module.exports = {
 
     register,
-    login
+    login,
+    userLogic
 
 }
 

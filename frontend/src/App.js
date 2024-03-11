@@ -9,9 +9,13 @@ import Signup from './Pages/Signup/Signup'
 import PageNotFound from './Pages/PageNotFound/PageNotFound'
 import Navbar from './Components/Navbar/Navbar'
 import Logout from './Pages/Logout/Logout'
+import AdminLayout from './Components/Admin-Layout/Admin-Layout';
+import AdminContacts from './Components/Admin-Contacts/Admin-Contacts';
+import AdminServices from './Components/Admin-Services/Admin-Services';
+import AdminUsers from './Components/Admin-Users/Admin-Users';
 
 function App() {
- 
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -25,6 +29,12 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<PageNotFound />} />
+          // Nested Route
+          <Route path='/admin' element={<AdminLayout />}>
+            <Route path='users' element={<AdminUsers />} />
+            <Route path='contacts' element={<AdminContacts />} />
+            <Route path='services' element={<AdminServices />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

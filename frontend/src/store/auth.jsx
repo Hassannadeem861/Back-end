@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 
 export const globalContext = createContext()
@@ -23,6 +23,9 @@ export const AuthProvider = ({ children }) => {
     }
     // console.log("logoutUser :", logoutUser);
 
+    // JWT AUTHENTICATION TO GET THE CURRENTLY LOGGEDIN USER DATA 
+    
+    
 
     return <globalContext.Provider value={{ isLoggedIn, storeTokenInLS, logoutUser }}>
         {children}
