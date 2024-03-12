@@ -1,14 +1,13 @@
 const db = require("../modules");
 const User = db.registers;
 const Contact = db.contacts;
-const dbName = "Authentication";
-const tableName = "users";
+
 
 // GET ALL USERS
 const getAllUsers = async (req, res) => {
     try {
 
-        const users = await User.findAll({}, { password: 0 })
+        const users = await User.findAll()
         if (!users || users === 0) {
             return res.status(404).json({
                 message: "Users not found",
@@ -34,27 +33,24 @@ const getSingleUser = async (req, res) => {
 
         const id = req.params.id;
         console.log("getSingleUser id:", id);
-        const findSingleUser
-        User.findByPk(id)
-            .then(data => {
-                if (data) {
-                    res.send(data);
-                } else {
-                    res.status(404).send({
-                        message: `Cannot find admin with id=${id}.`
-                    });
-                }
-            })
-
-        return res.status(200).json({
-            message: "Get Single User Successfull",
-            findSingleUser
-        })
+        const findSingleUser = await User.findByPk(id);
+        console.log("findSingleUser", findSingleUser);
+        if (findSingleUser) {
+            return res.status(200).json({
+                message: "Get Single User Successful",
+                findSingleUser
+            });
+        } else {
+            return res.status(404).json({
+                message: `Cannot find user with id=${id}.`
+            });
+        }
     } catch (error) {
         next(error)
         console.log("getAllUsers error :", error);
-        res.status(500).send({
-            message: "Error retrieving admin with id=" + id
+        return res.status(500).json({
+            message: "Error retrieving user with id=" + req.params.id,
+            error: error.message // Include the error message in the response
         });
     }
 }

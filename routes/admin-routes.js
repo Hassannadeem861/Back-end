@@ -6,6 +6,6 @@ const router = express.Router();
 router.route('/users').get(adminRouter.getAllUsers)
 router.route('/contacts').get(adminRouter.getAllContacts)
 // Retrieve a single admin with id
-router.get("/:id", adminRouter.getSingleUser);
+router.get("/users/:id", adminRouter.getSingleUser);
 
 module.exports = router
