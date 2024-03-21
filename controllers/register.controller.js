@@ -101,11 +101,11 @@ const login = async (req, res) => {
             return res.status(404).json({ message: "invalid username and password" });
         }
 
-        const token = jwt.sign({ userId: user.id }, "Hassan_Nadeem", { expiresIn: "1h" });
+        const token = jwt.sign({ userId: user.id, email: user.email, isAdmin: user.isAdmin }, "Hassan_Nadeem", { expiresIn: "1h" });
         console.log("login token :", token);
         res.status(201).json({
-            message: "login successfully", databaseName: dbName,
-            tableName: tableName, userId: user.id, isAdmin: this.isAdmin, token
+            message: "login successfully", databaseName: dbName, email: user.email,
+            tableName: tableName, userId: user.id, isAdmin: user.isAdmin, token
         })
     } catch (error) {
         console.log("login error :", error);
@@ -119,7 +119,7 @@ const userLogic = async (req, res) => {
     try {
         const userData = req.user
         console.log("userData :", userData);
-        return res.status(201).json({ message: userData })
+        return res.status(201).json({ userData })
     } catch (error) {
         console.log(`error from the userlogic ${error}`);
 

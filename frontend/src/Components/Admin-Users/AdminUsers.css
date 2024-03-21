@@ -1,0 +1,43 @@
+.admin-users-section {
+    margin-top: 20px;
+}
+
+.admin-users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-users-table th,
+.admin-users-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    /* Center-align content */
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    overflow: hidden;
+    /* Hide overflowing content */
+    text-overflow: ellipsis;
+    /* Show ellipsis (...) for overflow */
+}
+
+.admin-users-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+    /* Left-align header */
+}
+
+.admin-users-table th:first-child,
+.admin-users-table td:first-child {
+    text-align: center;
+    /* Center-align first column */
+}
+
+.admin-users-table td:last-child {
+    text-align: center;
+    /* Center-align last column */
+}
+
+.admin-users-table tr:hover {
+    background-color: #f2f2f2;
+}

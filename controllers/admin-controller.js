@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const db = require("../modules");
 const User = db.registers;
 const Contact = db.contacts;
@@ -33,12 +34,20 @@ const getSingleUser = async (req, res) => {
 
         const id = req.params.id;
         console.log("getSingleUser id:", id);
+
+        // Assuming there's a method to get contacts by user ID
+        const contacts = await getContactsByUserId(id);
+        console.log("contacts", contacts);
+
+        // Find by single user
         const findSingleUser = await User.findByPk(id);
         console.log("findSingleUser", findSingleUser);
         if (findSingleUser) {
             return res.status(200).json({
                 message: "Get Single User Successful",
-                findSingleUser
+                findSingleUser,
+                contacts
+
             });
         } else {
             return res.status(404).json({
@@ -46,7 +55,6 @@ const getSingleUser = async (req, res) => {
             });
         }
     } catch (error) {
-        next(error)
         console.log("getAllUsers error :", error);
         return res.status(500).json({
             message: "Error retrieving user with id=" + req.params.id,
@@ -55,7 +63,51 @@ const getSingleUser = async (req, res) => {
     }
 }
 
+// Update User Logic
+const updateUserById = async (req, res) => {
+    const id = req.params.id;
+    console.log("updateUserById :", id);
 
+    User.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    id,
+                    message: "User was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Tutorial with id=" + id
+            });
+        });
+};
+
+
+// delete User Logic
+const deleteUserById = async (req, res) => {
+    try {
+        const id = req.params.id
+        console.log("deleteUserById :", id);
+        const deleteUser = await User.destroy({ where: { id: id } });
+        console.log("deleteUser :", deleteUser);
+        res.status(201).json({
+            id,
+            message: "Register User was deleted successfully!",
+        })
+    } catch (error) {
+        console.log("deleteUserById Error :", error);
+
+    }
+
+}
 // GET ALL CONTACTS
 const getAllContacts = async (req, res) => {
     try {
@@ -66,7 +118,7 @@ const getAllContacts = async (req, res) => {
                 message: "Contacts not found",
             })
         }
-        console.log("contacts :", contacts);
+        console.log("getAllContacts :", contacts);
         return res.status(200).json({
             message: "Get All Users Successfull",
             contacts
@@ -81,9 +133,11 @@ const getAllContacts = async (req, res) => {
 module.exports = {
     getAllUsers,
     getSingleUser,
-    getAllContacts
-
+    getAllContacts,
+    deleteUserById,
+    updateUserById
 }
+
 
 
 

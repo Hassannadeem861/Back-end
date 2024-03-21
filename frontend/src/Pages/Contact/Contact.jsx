@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 // import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../store/auth'
 
 const Contact = () => {
     // const navigate = useNavigate();
@@ -10,6 +11,20 @@ const Contact = () => {
         message: ''
     })
     // console.log("user :", user);
+
+    const [data, setData] = useState(true)
+
+    const { userData } = useAuth()
+    console.log("userData: ", userData);
+
+    if (data && userData) {
+        setUser({
+            username: userData.username,
+            email: userData.email,
+            message: ''
+        })
+        setData(false)
+    }
 
     const changeHandler = (e) => {
         // console.log("event: ", e);
